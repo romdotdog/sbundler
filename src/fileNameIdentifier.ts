@@ -24,11 +24,12 @@ export default function identifyFromFileName(
 	fileName: string
 ): FileType | never {
 	const splitByDot = fileName.split(".")
+
 	let result
 
 	if (
-		splitByDot.length >= 2 &&
-		(result = fileEndingToType[splitByDot[splitByDot.length - 2]])
+		splitByDot.length > 2 &&
+		(result = fileEndingToType[splitByDot[splitByDot.length - 2]]) !== undefined
 	) {
 		return result
 	}
