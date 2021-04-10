@@ -19,20 +19,24 @@ async function checkFileExists(file: string) {
 }
 
 cli
-	.command("", "Bundle this file and all dependencies")
+	.command("[output]", "Bundle this file and all dependencies")
 	.option("-s <serverMain>, --server <serverMain>", "Set main server file")
 	.option("-c <clientMain>, --client <clientMain>", "Set main client file")
 	.option("-nw, --no-watermark", "Set no watermark")
-	.action(async (options) => {
+	.action(async (output, options) => {
 		const serverMain = options.serverMain ?? "main.server.lua"
 		const clientMain = options.clientMain ?? "main.client.lua"
 
-		if (!checkFileExists(serverMain)) {
-			throw new Error("Server main file not found.")
+		if (!(await checkFileExists(serverMain))) {
+			throw new Error(
+				`Server main file by the name of \`${serverMain}\` not found in current directory.`
+			)
 		}
 
-		if (!checkFileExists(clientMain)) {
-			throw new Error("Client main file not found.")
+		if (!(await checkFileExists(clientMain))) {
+			throw new Error(
+				`Client main file by the name of \`${clientMain}\` not found in current directory.`
+			)
 		}
 
 		const serverFileType = identifyFromFileName(serverMain)
@@ -121,13 +125,16 @@ cli
 
 		if (options.nw) watermark = ""
 
+		output ??= "bundle.lua"
 		fs.promises.writeFile(
-			"bundle.lua",
+			output,
 			serverBundle.replace(
 				"__SBUNDLER__CLIENT__",
 				watermark + `[${eq}[\n\t${clientBundle.replace(/\n/g, "\n\t")}\n]${eq}]`
 			)
 		)
+
+		console.log(`Successfully wrote to ${output}`)
 	})
 
 cli.help()
