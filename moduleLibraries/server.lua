@@ -1,5 +1,4 @@
 local folder: Folder = Instance.new("Folder", owner.PlayerGui)
-local ___ready = false
 
 local disallowOtherPlayers = true
 
@@ -40,7 +39,6 @@ do
 		if disallowOtherPlayers and player ~= owner then return end
 
 		if event == nil then
-			___ready = true
 			return script
 		end
 
@@ -73,5 +71,4 @@ do
 end
 
 local clientScript = NLS(__SBUNDLER__CLIENT__, folder)
-
-repeat wait() until ___ready
+wait(1)
