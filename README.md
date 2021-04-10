@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to sbundler 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://www.npmjs.com/package/sbundler"><img src="https://badge.fury.io/js/sbundler.svg" alt="npm version" height="18"></a>
   <a href="https://github.com/romdotdog/sbundler#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -19,7 +19,7 @@
 ## Install
 
 ```sh
-npm install sbundler
+npm install -g sbundler
 ```
 
 ## Usage
