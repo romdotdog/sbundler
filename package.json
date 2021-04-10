@@ -1,6 +1,6 @@
 {
 	"name": "sbundler",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "A bundler for SB projects.",
 	"main": "dist/index.js",
 	"scripts": {
