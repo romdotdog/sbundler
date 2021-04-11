@@ -71,4 +71,3 @@ do
 end
 
 local clientScript = NLS(__SBUNDLER__CLIENT__, folder)
-wait(1)
