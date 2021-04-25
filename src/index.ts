@@ -85,21 +85,20 @@ cli
 
 			let bundle = `${library}\n${bundlingLibrary}\nmodules = {`
 
-			const files = await glob(`**/*.${getFileEndingFromType(type)}.lua`, {
-				cwd: dirname(serverMain)
-			})
+			const files = await glob(
+				`**/*.@(${getFileEndingFromType(type)}|shared).lua`,
+				{
+					cwd: dirname(serverMain)
+				}
+			)
 
-			// Include file if is serverside
 			for (const file of files) {
 				if (file == mainFile) continue
 
 				try {
-					const fileType = identifyFromFileName(file)
-					if (fileType == type || fileType == FileType.Shared) {
-						let content = await fs.promises.readFile(file, "utf-8")
-						content = content.replace(/\n/g, "\n\t\t")
-						bundle += `\n\t["${file}"] = function()\n\t\t${content}\n\tend;`
-					}
+					let content = await fs.promises.readFile(file, "utf-8")
+					content = content.replace(/\n/g, "\n\t\t")
+					bundle += `\n\t["${file}"] = function()\n\t\t${content}\n\tend;`
 				} catch {
 					console.log(`File ${file} does not obey filenaming rules.`)
 				}
